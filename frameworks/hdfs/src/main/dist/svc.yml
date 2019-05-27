@@ -554,8 +554,8 @@ plans:
         strategy: serial
         pod: name
         steps:
-          - 0: [[node, zkfc]]
           - 1: [[node, zkfc]]
+          - 0: [[node, zkfc]]
       data:
         strategy: serial
         pod: data
