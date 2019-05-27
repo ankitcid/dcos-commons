@@ -655,6 +655,7 @@ public class SchedulerBuilder {
     final String plansType;
     final Collection<Plan> plans;
     if (!yamlPlans.isEmpty()) {
+      logger.info("yamlPlans are: \n\n\n" + yamlPlans);
       plansType = "YAML";
       // Note: Any internal Plan generation must only be AFTER updating/validating the config.
       // Otherwise plans may look at the old config and mistakenly think they're COMPLETE.

@@ -172,23 +172,24 @@ public class PlanGenerator {
     Map<String, List<List<String>>> podIndexToTasks =
         mapPodIndexesToTasks(phaseName, rawPhase.getSteps());
 
-    if (PARALLEL_STRATEGY_TYPES.contains(rawPhase.getStrategy())) {
+    DefaultPhase result = PARALLEL_STRATEGY_TYPES.contains(rawPhase.getStrategy()) ?
       // Custom steps with a parallel strategy: Custom dependencies are required
-      return generatePhaseWithCustomParallelSteps(
+      generatePhaseWithCustomParallelSteps(
           rawPhase.getStrategy(),
           phaseName,
           podSpec,
           podIndexToTasks
-      );
-    } else {
+      ) :
       // Custom steps with a serial strategy: No custom dependencies needed
-      return generatePhaseWithCustomSerialSteps(
+      generatePhaseWithCustomSerialSteps(
           rawPhase.getStrategy(),
           phaseName,
           podSpec,
           podIndexToTasks
       );
-    }
+    LOGGER.info("Generated phase : {} with {} step(s) and strategy {}", result.getName(), result.getChildren().size(),
+            result.getStrategy());
+    return result;
   }
 
   /**
@@ -217,7 +218,7 @@ public class PlanGenerator {
    * Custom steps are defined, but with a serial (or serial-canary) phase. We can make do without needing any custom
    * dependency logic. The phase steps will each launch one or more tasks in the various pods.
    */
-  private Phase generatePhaseWithCustomSerialSteps(
+  private DefaultPhase generatePhaseWithCustomSerialSteps(
       String strategy,
       String phaseName,
       PodSpec podSpec,
@@ -257,7 +258,7 @@ public class PlanGenerator {
    * graph that enforces any serial deployment within each of the pods, while still allowing cross-pod deployment to
    * run in parallel.
    */
-  private Phase generatePhaseWithCustomParallelSteps(
+  private DefaultPhase generatePhaseWithCustomParallelSteps(
       String strategy,
       String phaseName,
       PodSpec podSpec,
