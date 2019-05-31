@@ -412,6 +412,11 @@
         "partitioner": {
           "type": "string",
           "description": "The partitioner used to distribute rows across the cluster. Murmur3Partitioner is the recommended setting. RandomPartitioner and ByteOrderedPartitioner are supported for legacy applications.",
+          "enum": [
+            "org.apache.cassandra.dht.Murmur3Partitioner",
+            "org.apache.cassandra.dht.RandomPartitioner",
+            "org.apache.cassandra.dht.ByteOrderedPartitioner"
+          ],
           "default": "org.apache.cassandra.dht.Murmur3Partitioner"
         },
         "key_cache_save_period": {
@@ -457,6 +462,10 @@
         "memtable_allocation_type": {
           "type": "string",
           "description": "The type of allocations for the Cassandra memtable. heap_buffers keep all data on the JVM heap. offheap_buffers may reduce heap utilization for large string or binary values. offheap_objects may improve heap size for small integers or UUIDs as well. Both off heap options will increase read latency.",
+          "enum": [
+            "heap_buffers",
+            "heap_objects"
+          ],
           "default": "heap_buffers"
         },
         "index_summary_resize_interval_in_minutes": {
@@ -592,6 +601,11 @@
         "internode_compression": {
           "type": "string",
           "description": "Controls whether traffic between nodes is compressed. all compresses all traffic. none compresses no traffic. dc compresses between datacenters.",
+          "enum": [
+            "all",
+            "none",
+            "dc"
+          ],
           "default": "all"
         },
         "max_hints_file_size_in_mb": {
@@ -742,6 +756,10 @@
         "disk_optimization_strategy": {
           "type": "string",
           "description": "The strategy for optimizing disk reads",
+          "enum": [
+          "ssd",
+          "spinning"
+        ],
           "default": "ssd"
         },
         "max_value_size_in_mb": {
@@ -752,6 +770,12 @@
         "otc_coalescing_strategy": {
           "type": "string",
           "description": "The strategy to use for coalescing network messages",
+          "enum": [
+            "DISABLED",
+            "FIXED",
+            "MOVINGAVERAGE",
+            "TIMEHORIZON"
+          ],
           "default": "TIMEHORIZON"
         },
         "disk_failure_policy": {
