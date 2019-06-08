@@ -1,5 +1,5 @@
 # See Dockerfile.base for instructions on how to update this base image.
-FROM mesosphere/dcos-commons-base:latest@sha256:2f87f4b3ce9e9fde446608e63827911275c756a133bde96d03fd21a9f3dff129
+FROM mesosphere/dcos-commons-base:latest@sha256:87101af88eb5c2b25e29de21ce55d9658091a934e69425199771a336f12dcffb
 
 ENV GO_VERSION=1.10.2
 ENV PATH=$PATH:/usr/local/go/bin
