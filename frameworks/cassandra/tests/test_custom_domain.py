@@ -30,16 +30,10 @@ def test_custom_domain():
         config.PACKAGE_NAME,
         config.SERVICE_NAME,
         task_count,
-        additional_options={
-          "service": {
-            "security": {
-                "custom_domain": custom_domain,
-                        },
-                     }
-        }
+        additional_options={"service": {"security": {"custom_domain": custom_domain, }, }, }
     )
 
-    # Verify the endpoint entry is correct  
+    # Verify the endpoint entry is correct
     assert set(["native-client"]) == set(sdk_networks.get_endpoint_names(config.PACKAGE_NAME, config.SERVICE_NAME))
     test_endpoint = sdk_networks.get_endpoint(config.PACKAGE_NAME, config.SERVICE_NAME, "native-client")
     assert set(["address", "dns"]) == set(test_endpoint.keys())
