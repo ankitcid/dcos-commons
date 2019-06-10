@@ -108,7 +108,7 @@
                 }
               }
             },
-	   "authentication": {
+     "authentication": {
             "type": "object",
             "description": "DC/OS Apache Cassandra authentication settings",
             "properties": {
@@ -205,7 +205,11 @@
                 }
 
             }
-        }
+        },
+        "custom_domain": {
+          "type": "string",
+          "description": "Aaa custom domain to be used in place of autoip.dcos.thisdcos.directory. This can be used to expose the service securely outside of the cluster, but requires setting up external DNS. See the service documentation for details."
+        },
                 }
         },
         "readiness_check" : {
